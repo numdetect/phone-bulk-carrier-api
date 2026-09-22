@@ -1,0 +1,87 @@
+{
+  "name": "Bulk Global Carrier Lookup",
+  "brand": "NumDetect",
+  "repository": "numdetect/phone-bulk-carrier-api",
+  "description": "Turn a phone list into routing-ready context. Append carrier, underlying carrier, line type, country, region and city to international records, then use the enriched result for routing, regional analysis, segmentation and CRM updates.",
+  "official_site": "https://numdetect.com",
+  "landing_page": "https://numdetect.com/products/global_carrier_batch",
+  "canonical_docs": "https://numdetect.com/api-docs",
+  "base_url": "https://numdetect.com",
+  "auth": {
+    "type": "api_key",
+    "header": "X-API-Key"
+  },
+  "mode": "async-bulk",
+  "product": "global_carrier_batch",
+  "identifier_kind": "phone",
+  "requires_country": true,
+  "endpoints": {
+    "submit": {
+      "method": "POST",
+      "path": "/api/v1/bulk-tasks"
+    },
+    "status": {
+      "method": "GET",
+      "path": "/api/v1/bulk-tasks/{id}"
+    },
+    "balance": {
+      "method": "GET",
+      "path": "/api/v1/balance"
+    }
+  },
+  "limits": {
+    "min_items": 500,
+    "max_items": 100000,
+    "poll_interval_seconds": 30,
+    "file_formats": [
+      "txt",
+      "csv"
+    ]
+  },
+  "result_fields": [
+    {
+      "name": "number",
+      "example": "17253100591",
+      "description": "The original submitted E.164 number, used to match carrier and geographic results back to the original list record."
+    },
+    {
+      "name": "carrier",
+      "example": "T-Mobile",
+      "description": "The customer-facing carrier name when identifiable. Use it for service routing or CRM enrichment; do not infer that no carrier exists when the value is empty."
+    },
+    {
+      "name": "underlying_carrier",
+      "example": "",
+      "description": "The underlying network-carrier information when identifiable. It can differ from carrier for resellers, virtual operators or ported numbers."
+    },
+    {
+      "name": "number_type",
+      "example": "Fixed Line or Mobile",
+      "description": "The returned line type, such as mobile, fixed line or another identifiable category. It can support routing and segmentation when used with your own business rules."
+    },
+    {
+      "name": "country_code",
+      "example": "US",
+      "description": "The returned country or territory code for baseline grouping and regional reporting across international lists. It is not a person’s current location."
+    },
+    {
+      "name": "region",
+      "example": "NV",
+      "description": "The returned region or state/province context when available. It supports regional analysis and should not be treated as an exact geographic location."
+    },
+    {
+      "name": "city",
+      "example": "LAS VEGAS",
+      "description": "The returned city-level context when available. Data sources and number allocation can affect accuracy, so validate it against your own address or consent records when needed."
+    }
+  ],
+  "statuses": [
+    "processing",
+    "success",
+    "failed"
+  ],
+  "pricing_url": "https://numdetect.com/pricing",
+  "maintainer": "NumDetect",
+  "license": "MIT",
+  "last_reviewed": "2026-09-22"
+}
